@@ -1,42 +1,33 @@
-var toDos = [
-    {
-        title: 'Learn HTML, CSS and JavaScript',
-        done: true
-    },
-    {
-        title: 'Learn the basics of Vue JS',
-        done: true
-    },
-    {
-        title: 'Complete Vue JS Challenge with excellence',
-        done: false
-    }
-]
 
-const ToDoListApp = {
-    data() { 
+const todosApp = {
+    data() {
         return {
-            toDos: window.toDos,
-            newToDo: [{}]
+            todos: [],
+            newTodo: {
+                done: false
+            }
         }
     },
     methods: {
-        lineThrough: function (toDo) {
-            toDo.done = !toDo.done;
-        },
-        clear: function () {
-            this.toDos = [{}];
-        },
-        add: function () {
-            if (Object.keys(this.newToDo)[1]!=="title") {
-                alert('Please provide a to-do');
-
-            } else if (Object.keys(this.toDos)) {
-                this.toDos.push(this.newToDo);
-                this.newToDo = [{}];
+        addTodo: function() {
+            if (this.newTodo.text) {
+                this.todos.push(this.newTodo);
+                this.newTodo = {
+                    done: false
+                };
+                localStorage.setItem("todos", JSON.stringify(this.todos));
+            } else {
+                alert("To-do text is required");
             }
         }
+    },
+    created() {
+        this.todos = localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")) : this.todos;
+    },
+    updated() {
+        localStorage.setItem("todos", JSON.stringify(this.todos));
     }
-};
 
-Vue.createApp(ToDoListApp).mount('#app');
+}
+
+Vue.createApp(todosApp).mount('#app');

@@ -20,24 +20,20 @@
                 
                 <h3>To-do List</h3>
                 
-                <div class="all-todos" v-for="toDo in toDos">
-                    <div
-                        class="single-todo"
-                        :class="{ done : toDo.done }"
-                        @click="lineThrough(toDo)"
-                    >
-                        <p>{{ toDo.title }}</p>
-                    </div>            
+                <div class="all-todos">
+                    <div 
+                        class="single-todo" 
+                        v-for="todo in todos"
+                        :class="{done : todo.done}"
+                        @click="todo.done = !todo.done">
+                        <p>{{todo.text}}</p>
+                    </div>
                 </div>
 
-                <button 
-                    class="clear"
-                    @click="clear()"
-                    v-if="toDos.length>1"
-                >Clear All</button>
+                <button v-if="todos.length" class="clear" @click="todos=[]">Clear All</button>
 
-                <input type="text" placeholder="Add new to-do" v-model="newToDo.title">
-                <button class="add" @click="add()">Add</button>
+                <input type="text" placeholder="Add new to-do" v-model="newTodo.text">
+                <button class="add" @click="addTodo()">Add</button>
 
                 <div class="instructions">
                     Instructions:

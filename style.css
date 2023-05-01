@@ -115,3 +115,7 @@ div.instructions ul {
 div.instructions ul li {
     margin: 4px auto;
 }
+
+.clear.hide {
+    display: none;
+}
